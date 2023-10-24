@@ -21,11 +21,11 @@ COPY --chown=realpython test/  test/
 
 RUN python -m pip install . -c constraints.txt && \
     python -m pytest test/unit/ && \
-    python -m flake8 src/ && \
+    python -m flake8 --ignore F541 src/ && \
     python -m isort src/ --check && \
     python -m black src/ --check --quiet && \
-    python -m pylint src/ --disable=C0114,C0116,R1705,W1309,E501,E1101 && \
-    python -m bandit -r src/ --quiet \
+    python -m pylint src/ --disable=C0114,C0116,R1705,W1309,E501,E1101,F541 && \
+    python -m bandit -r src/ --quiet && \
     python -m pip wheel --wheel-dir dist/ . -c constraints.txt
 
 

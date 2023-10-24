@@ -9,13 +9,10 @@ app = Flask(__name__)
 
 @app.get("/")
 def index():
-
     try:
-
         page_views = redis().incr("page_views")
 
     except RedisError:
-
         app.logger.exception("Redis error")
 
         return f"Sorry, something went wrong \N{pensive face}", 500
@@ -25,5 +22,4 @@ def index():
 
 @cache
 def redis():
-
     return Redis.from_url(os.getenv("REDIS_URL", "redis://localhost:6379"))
